@@ -1,21 +1,18 @@
 package com.gupaoedu.vip.netty.chat.server.handler;
 
-import lombok.extern.slf4j.Slf4j;
-
 import com.gupaoedu.vip.netty.chat.processor.MsgProcessor;
 import com.gupaoedu.vip.netty.chat.protocol.IMMessage;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TerminalServerHandler extends SimpleChannelInboundHandler<IMMessage>{
+public class TerminalServerHandler extends SimpleChannelInboundHandler<IMMessage> {
+    private MsgProcessor processor = new MsgProcessor();
 
-	private MsgProcessor processor = new MsgProcessor();
-	
-	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, IMMessage msg) throws Exception {
-	    processor.sendMsg(ctx.channel(), msg);
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, IMMessage msg) throws Exception {
+        processor.sendMsg(ctx.channel(), msg);
     }
 
     /**
@@ -27,5 +24,4 @@ public class TerminalServerHandler extends SimpleChannelInboundHandler<IMMessage
         cause.printStackTrace();
         ctx.close();
     }
-
 }

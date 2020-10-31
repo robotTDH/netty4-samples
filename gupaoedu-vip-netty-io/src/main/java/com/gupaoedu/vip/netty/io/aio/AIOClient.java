@@ -1,4 +1,5 @@
 package com.gupaoedu.vip.netty.io.aio;
+
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -10,12 +11,16 @@ import java.nio.channels.CompletionHandler;
 public class AIOClient {
     private final AsynchronousSocketChannel client;
 
-    public AIOClient() throws Exception{
+    public AIOClient() throws Exception {
         client = AsynchronousSocketChannel.open();
     }
 
-    public void connect(String host,int port)throws Exception{
-        client.connect(new InetSocketAddress(host,port),null,new CompletionHandler<Void,Void>() {
+    public static void main(String args[]) throws Exception {
+        new AIOClient().connect("localhost", 8000);
+    }
+
+    public void connect(String host, int port) throws Exception {
+        client.connect(new InetSocketAddress(host, port), null, new CompletionHandler<Void, Void>() {
             @Override
             public void completed(Void result, Void attachment) {
                 try {
@@ -32,8 +37,7 @@ public class AIOClient {
             }
         });
         final ByteBuffer bb = ByteBuffer.allocate(1024);
-        client.read(bb, null, new CompletionHandler<Integer,Object>(){
-
+        client.read(bb, null, new CompletionHandler<Integer, Object>() {
                     @Override
                     public void completed(Integer result, Object attachment) {
                         System.out.println("IO操作完成" + result);
@@ -46,16 +50,10 @@ public class AIOClient {
                     }
                 }
         );
-
         try {
             Thread.sleep(Integer.MAX_VALUE);
         } catch (InterruptedException ex) {
             System.out.println(ex);
         }
-
-    }
-
-    public static void main(String args[])throws Exception{
-        new AIOClient().connect("localhost",8000);
     }
 }

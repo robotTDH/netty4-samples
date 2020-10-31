@@ -1,5 +1,5 @@
 package com.gupaoedu.vip.netty.rpc.api;
 
 public interface IRpcHelloService {
-    String hello(String name);  
+    String hello(String name);
 }  

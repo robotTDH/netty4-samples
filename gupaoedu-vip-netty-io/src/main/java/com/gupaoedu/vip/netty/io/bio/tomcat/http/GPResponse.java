@@ -7,7 +7,8 @@ import java.io.OutputStream;
  */
 public class GPResponse {
     private OutputStream out;
-    public GPResponse(OutputStream out){
+
+    public GPResponse(OutputStream out) {
         this.out = out;
     }
 
